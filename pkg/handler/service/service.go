@@ -1,5 +1,7 @@
 package service
 
+import "github.com/bremcm/todo-app/pkg/handler/service/repository"
+
 type Authorization interface {
 }
 
@@ -15,6 +17,6 @@ type Service struct {
 	TodoList
 }
 
-func NewService() *Service {
+func NewService(repos *repository.Repository) *Service {
 	return &Service{}
 }

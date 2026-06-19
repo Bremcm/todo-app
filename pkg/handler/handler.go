@@ -1,8 +1,12 @@
 package handler
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/bremcm/todo-app/pkg/handler/service"
+	"github.com/gin-gonic/gin"
+)
 
 type Handler struct {
+	services *service.Service
 }
 
 func (h *Handler) InitRoutes() *gin.Engine {
