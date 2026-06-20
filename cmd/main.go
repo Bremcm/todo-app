@@ -7,6 +7,7 @@ import (
 	"github.com/bremcm/todo-app/pkg/handler"
 	"github.com/bremcm/todo-app/pkg/handler/service"
 	"github.com/bremcm/todo-app/pkg/handler/service/repository"
+	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
 )
 
@@ -14,7 +15,20 @@ func main() {
 	if err := initConfig(); err != nil {
 		log.Fatalf("error initializing configs: %s", err.Error())
 	}
-	repos := repository.NewRepository()
+
+	db, err := repository.NewPostgresDB(repository.Config{
+		Host:     "localhost",
+		Port:     "5436",
+		Username: "postgres",
+		Password: "qwerty",
+		DBName:   "postgres",
+		SSLMode:  "disable",
+	})
+	if err != nil {
+		log.Fatalf("failed to initialize: %s", err.Error())
+	}
+
+	repos := repository.NewRepository(db)
 	services := service.NewService(repos)
 	handlers := handler.NewHandler(services)
 
