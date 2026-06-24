@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"os"
 	"time"
 
 	"github.com/bremcm/todo-app"
@@ -10,10 +11,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-const (
-	signingKey = "qrkjk#4#%35FSFJlja#4353KSFjH"
-	tokenTTL   = 12 * time.Hour
-)
+const tokenTTL = 12 * time.Hour
 
 type tokenClaims struct {
 	jwt.StandardClaims
@@ -56,7 +54,7 @@ func (s *AuthService) GenerateToken(username, password string) (string, error) {
 		user.Id,
 	})
 
-	return token.SignedString([]byte(signingKey))
+	return token.SignedString([]byte(os.Getenv("SIGNING_KEY")))
 }
 
 func (s *AuthService) ParseToken(accessToken string) (int, error) {
@@ -64,8 +62,7 @@ func (s *AuthService) ParseToken(accessToken string) (int, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("invalid signing method")
 		}
-
-		return []byte(signingKey), nil
+		return []byte(os.Getenv("SIGNING_KEY")), nil
 	})
 	if err != nil {
 		return 0, err
