@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: todo-db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: postgres
+    ports:
+      - "5436:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  migrate:
+    image: migrate/migrate
+    container_name: todo-migrate
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./schema:/schema
+    command:
+      [
+        "-path", "/schema",
+        "-database", "postgres://postgres:${DB_PASSWORD}@db:5432/postgres?sslmode=disable",
+        "up"
+      ]
+
+  app:
+    build: .
+    container_name: todo-app
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    ports:
+      - "8000:8000"
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD}
+      SIGNING_KEY: ${SIGNING_KEY}
+
+volumes:
+  pgdata:

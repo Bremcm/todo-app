@@ -1,2 +1,11 @@
-.idea
 .env
+
+todo-app
+
+*.exe
+*.out
+/dist/
+
+.idea/
+.vscode/
+.DS_Store
