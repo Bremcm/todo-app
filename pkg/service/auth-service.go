@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/bremcm/todo-app"
-	"github.com/bremcm/todo-app/pkg/handler/service/repository"
+	"github.com/bremcm/todo-app/pkg/repository"
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
 )

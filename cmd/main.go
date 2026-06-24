@@ -8,8 +8,8 @@ import (
 
 	"github.com/bremcm/todo-app"
 	"github.com/bremcm/todo-app/pkg/handler"
-	"github.com/bremcm/todo-app/pkg/handler/service"
-	"github.com/bremcm/todo-app/pkg/handler/service/repository"
+	"github.com/bremcm/todo-app/pkg/service"
+	"github.com/bremcm/todo-app/pkg/repository"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"github.com/sirupsen/logrus"

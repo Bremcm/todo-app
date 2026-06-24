@@ -2,7 +2,7 @@ package service
 
 import (
 	"github.com/bremcm/todo-app"
-	"github.com/bremcm/todo-app/pkg/handler/service/repository"
+	"github.com/bremcm/todo-app/pkg/repository"
 )
 
 type Authorization interface {

@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/bremcm/todo-app/pkg/handler/service"
+	"github.com/bremcm/todo-app/pkg/service"
 	"github.com/gin-gonic/gin"
 )
 

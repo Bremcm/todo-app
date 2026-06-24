@@ -171,9 +171,3 @@ curl -X POST http://localhost:8000/api/lists/ \
 (пользователь ↔ список) и `lists_items` (список ↔ задача). Связи — many-to-many через
 внешние ключи с `ON DELETE CASCADE`.
 
-## Возможные улучшения
-
-- Реорганизовать пакеты в плоскую структуру (`pkg/handler`, `pkg/service`, `pkg/repository`)
-- Перейти с устаревшего `dgrijalva/jwt-go` на `golang-jwt/jwt`
-- Возвращать `401` вместо `500` при неверных кредах
-- Покрыть слои unit-тестами
